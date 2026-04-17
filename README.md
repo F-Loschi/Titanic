@@ -13,7 +13,7 @@ Projeto de Análise Exploratória de Dados (EDA) e Machine Learning aplicado ao 
 ## Tentativas
 | Tentativa | Algoritmo | Score Kaggle |
 |-----------|-----------|-------------|
-| [Tentativa 1](link) | Random Forest | 0.77511 |
+| [Tentativa 1](https://github.com/F-Loschi/Titanic/tree/main/Attempts/Attempt_1_0.77511) | Random Forest | 0.77511 |
 
 ## Estrutura do Repositório
 ```
