@@ -1,17 +1,44 @@
 # Tentativa 2
 
 ## Modelo
-- **Algoritmo:** Random Forest Classifier, XGBoost, SVG
-- **Hiperparâmetros:** 
+- **Algoritmos testados:** Random Forest Classifier, XGBoost, SVM
+- **Seleção de hiperparâmetros:** GridSearchCV
 
 ## Pré-processamento
-- **Features numéricas:** Age, SibSp, Parch, Fare, FamilySize → StandardScaler
-- **Features categóricas:** Sex, Embarked, Title → OneHotEncoder (drop='first')
-- **Feature engineering:** Tratamento de nulos de Age usando título, feature FamilySize baseado na soma de SibSp + Parch + 1
+- **Features numéricas:** Age, FarePerPerson → StandardScaler
+- **Features categóricas:** Sex, Embarked, Title, FamilySizeLabel, GroupSizeLabel → OneHotEncoder (drop='first', handle_unknown='ignore')
+- **Features passthrough:** Pclass, GroupSize, FamilySize (variáveis discretas ordenadas, não escalonadas)
+- **Feature Engineering:**
+  - `FamilySize` = SibSp + Parch + 1
+  - `GroupSize` = número de passageiros com o mesmo ticket
+  - `FarePerPerson` = Fare / GroupSize (valor real pago por pessoa)
+  - `GroupSizeLabel` = categorização de GroupSize (solo, pequeno, grande)
+  - `FamilySizeLabel` = categorização de FamilySize (solo, pequeno, grande)
+  - Imputação de Age via mediana por título
 
 ## Resultados
-- **Acurácia no treino:** 
-- **Acurácia na validação:**
-- **Score no Kaggle:**
+| Modelo | Validação | Kaggle |
+|--------|-----------|--------|
+| Random Forest | 0.83 | 0.77272 |
+| XGBoost | 0.85 | 0.71770 |
+| SVM | 0.83 | 0.74641 |
+| Stacking Model | 0.83 | 0.74880 |
+| Voting Classifier Soft | 0.83 | 0.75837 |
+| Voting Classifier Hard | 0.83 | 0.75598 |
+
 
 ## Observações
+
+## Links consultados
+- [Gradient Boosting](https://www.geeksforgeeks.org/machine-learning/ml-gradient-boosting/)
+- [OneHotEncoder](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html)
+- [GridSearchCV](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html)
+- [RandomizedSearchCV](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.RandomizedSearchCV.html)
+- [XGBoost Documentação](https://xgboost.readthedocs.io/en/stable/python/python_api.html#xgboost.XGBClassifier)
+- [XGBoost GeeksForGeeks](https://www.geeksforgeeks.org/machine-learning/xgboost/)
+- [SVM Documentação](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html)
+- [SVM GeeksForGeeks](https://www.geeksforgeeks.org/machine-learning/support-vector-machine-algorithm/)
+- [Voting Classifier Documentação](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.VotingClassifier.html)
+- [Voting Classifier GeeksForGeeks](https://www.geeksforgeeks.org/machine-learning/voting-classifier/)
+- [Stacking Classifier Documentação](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.StackingClassifier.html)
+- [Stacking Classifier GeeksForGeeks](https://www.geeksforgeeks.org/machine-learning/stacking-in-machine-learning/)
